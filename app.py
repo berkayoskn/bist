@@ -85,8 +85,6 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Set, Tuple
 
-TR_TZ = ZoneInfo("Europe/Istanbul")
-
 # Windows konsollarında Türkçe karakter ve kutu çizimi hatasını (cp1254) önle
 if hasattr(sys.stdout, "reconfigure"):
     try:
