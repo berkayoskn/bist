@@ -55,14 +55,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    daemon = BISTMarketScannerDaemon(demo_mode=True)
+    # Daemon'ı parametresiz oluşturuyoruz
+    daemon = BISTMarketScannerDaemon()
+    # demo_mode parametresini execute_full_scan içine veriyoruz
     master_records, archive_path = daemon.execute_full_scan(demo_mode=True)
     
     html_path = daemon.file_mgr.latest_dir / "bist_analiz_panosu.html"
     if html_path.exists():
         return html_path.read_text(encoding="utf-8")
     return "<h1>Quant-Pro v6.0 Panosu Hazırlanıyor...</h1>"
-
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
