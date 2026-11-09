@@ -48,18 +48,16 @@ Bu sürümde yer alan ana modüller:
      * `05_tum_bist_ozet_tablo.csv`
      * `bist_analiz_panosu.html`
 """
+from __future__ import annotations
 from flask import Flask, render_template_string
-import os
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    # Render'da her siteye girildiğinde motoru tetikleyip güncel panoyu üretmek istiyorsanız:
-    daemon = BISTMarketScannerDaemon(demo_mode=True) # veya canlı tarama için demo_mode=False
+    daemon = BISTMarketScannerDaemon(demo_mode=True)
     master_records, archive_path = daemon.execute_full_scan(demo_mode=True)
     
-    # Üretilen HTML panonun yolunu okuyup tarayıcıya verelim
     html_path = daemon.file_mgr.latest_dir / "bist_analiz_panosu.html"
     if html_path.exists():
         return html_path.read_text(encoding="utf-8")
@@ -68,8 +66,6 @@ def index():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
-from __future__ import annotations
 
 import argparse
 import dataclasses
