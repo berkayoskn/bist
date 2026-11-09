@@ -58,7 +58,7 @@ def index():
     # Daemon'ı parametresiz oluşturuyoruz
     daemon = BISTMarketScannerDaemon()
     # demo_mode parametresini execute_full_scan içine veriyoruz
-    master_records, archive_path = daemon.execute_full_scan(demo_mode=True)
+    master_records, archive_path = daemon.execute_full_scan(demo_mode=False)
     
     html_path = daemon.file_mgr.latest_dir / "bist_analiz_panosu.html"
     if html_path.exists():
